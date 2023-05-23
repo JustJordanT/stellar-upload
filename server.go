@@ -52,7 +52,7 @@ func listObjectsHandler(c echo.Context) error {
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithRegion("us-west-2"),
-		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("AKIA6RM7A22NOYZH7JXM", "sSSmoL5NqzFj6kKiX0i6QzM4Tex94+WOVrfVK91D", "")),
+		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("", "", "")),
 	)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
