@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main>
       <ChakraProvider>
-        <Container>
+        <Container className="p-10">
           <div className="flex flex-row justify-center">
             <SiteTitle />
           </div>

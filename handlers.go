@@ -44,12 +44,13 @@ func listObjectsHandler(c echo.Context) error {
 	bucketName := "interstellar-block"
 
 	// List objects in the bucket
-	resp, err := s3Config("thig", "thjith").ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
+	resp, err := s3Config(KeyAuth(c), SecretKeyAuth(c)).ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
 		Bucket: aws.String(bucketName),
 	})
 	if err != nil {
 		log.Println("Failed to list objects in S3 bucket:", err)
-		return c.String(http.StatusInternalServerError, "Internal Server Error")
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		// return c.String(http.StatusInternalServerError, "Internal Server Error")
 	}
 
 	// Extract object keys from the response
@@ -91,7 +92,8 @@ func uploadFileHandler(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to upload file"})
 	}
-	return c.JSON(http.StatusOK, map[string]string{"ok": fmt.Sprintf("File '%s' uploaded sucessfully", file.Filename)})
+	fmt.Println("HERE")
+	return c.JSON(http.StatusOK, map[string]string{"ok": fmt.Sprintf("File '%s' uploaded successfully", file.Filename)})
 }
 
 func deleteHandler(c echo.Context) error {
